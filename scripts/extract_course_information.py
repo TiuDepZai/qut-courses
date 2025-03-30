@@ -1,0 +1,1 @@
+# The purpose of this script is to pull information from the each course information.
