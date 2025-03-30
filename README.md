@@ -41,8 +41,14 @@ pip install -r requirements.txt
 ```
 python3 -m pip install -r requirements.txt
 ```
-3. Running the Scrapy Crawler  
-```scrapy crawl qut_courses```
+3. Running the script 
+Head to the folder where the scripts are
+
+##### Windows 
+```python main.py```
+
+##### Linux / MacOS
+```python3 main.py```
 
 4. MongoDB Integration
 ## Windows
