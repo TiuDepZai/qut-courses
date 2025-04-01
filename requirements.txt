@@ -1,3 +1,4 @@
 scrapy
 pymongo
 dnspython
+scrapy-splash
