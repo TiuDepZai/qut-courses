@@ -61,5 +61,3 @@ def run_spider():
     process.start()  # Start the crawling process
 
 run_spider()
-
-print("PCI is done!")
