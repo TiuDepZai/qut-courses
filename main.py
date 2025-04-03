@@ -2,12 +2,20 @@ import subprocess
 import os
 import asyncio
 import json
+import sys
+
 
 # Async function for running scripts
 async def run_script(script_name): 
     # Run subprocess that won't block event loop
     process = await asyncio.create_subprocess_exec(
-        "python3", script_name, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+
+        # For Linux
+        # "python3", script_name, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+
+        # For Windows
+        sys.executable, script_name, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+
     )
 
     # Wait for process to finish and capture output
@@ -25,7 +33,12 @@ async def run_script(script_name):
 async def run_script_with_args(script_name, *args):
     # Run subprocess with arguments
     process = await asyncio.create_subprocess_exec(
-        "python3", script_name, *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        # For Linux
+        # "python", script_name, *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+
+        # For Windows
+        sys.executable, script_name, *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+
     )
 
     # Wait for process to finish and capture output
@@ -73,7 +86,7 @@ async def main():
     await check_and_run()
 
     # Run the script to pull course information
-    await pull_course_information()
+    # await pull_course_information()
 
 # Run the main function
 asyncio.run(main())

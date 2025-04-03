@@ -6,6 +6,8 @@ from scrapy_splash import SplashRequest
 from scrapy.crawler import CrawlerProcess
 from scrapy.http import HtmlResponse
 import os
+import json 
+from datetime import datetime
 
 class CourseSpider(scrapy.Spider):
     name = 'courses'
@@ -19,30 +21,49 @@ class CourseSpider(scrapy.Spider):
         yield SplashRequest(
             url=self.start_urls[0],
             callback=self.parse,
-            args={'wait': 2},  # Adjust wait time if needed
+            args={'wait': 2},  
         )
 
     def parse(self, response):
             # Save response for debugging
-            # with open("response.html", "w", encoding="utf-8") as f:
-            #     f.write(response.text)
+            with open("response.html", "w", encoding="utf-8") as f:
+                f.write(response.text)
 
             # Extract all course titles from <h3> tags
             course_titles = response.css('h3::text').getall()
 
+            # Prepare the list of courses
+            courses = []
+
             # Yield each course title with separated fields
             for title in course_titles:
-                    # Split the title into courseCode and course_title
-                    parts = title.strip().split(" ", 1)
-                    if len(parts) == 2:
-                        course_code, course_name = parts
-                    else:
-                        course_code, course_name = parts[0], ""
+                # Split the title into courseCode and course_title
+                parts = title.strip().split(" ", 1)
+                if len(parts) == 2:
+                    course_code, course_name = parts
+                else:
+                    course_code, course_name = parts[0], ""
 
-                    yield {
-                        'courseCode': course_code,
-                        'course_title': course_name,
-                    }
+                courses.append({
+                    'courseCode': course_code,
+                    'course_title': course_name,
+                })
+
+            # Build the final output structure
+            extracted_data = {
+                'source': self.start_urls[0],
+                'day_obtained': datetime.now().strftime('%Y-%m-%d'),
+                'list_of_courses': courses,
+            }
+
+            # Save the extracted data to a JSON file
+            output_file = 'courses.json'
+            with open(output_file, "w", encoding="utf-8") as f:
+                json.dump(extracted_data, f, indent=4)
+
+            # Yield the extracted data as output
+            yield extracted_data
+
 # Function to run the spider
 def run_spider():
     output_file = 'courses.json'
@@ -55,7 +76,6 @@ def run_spider():
     # Set up the crawler process with settings
     process = CrawlerProcess(settings={
         'FEED_FORMAT': 'json',  # Output format (can be csv, xml, etc.)
-        'FEED_URI': output_file,  # Output file name
     })
     process.crawl(CourseSpider)  # Start crawling with the CourseSpider
     process.start()  # Start the crawling process

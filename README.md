@@ -28,7 +28,7 @@ brew install python
 ## Setup Instructions
 1. Clone the Repository
 ```
-git clone https://github.com/YOUR_USERNAME/qut-course-scraper.git  
+git clone https://github.com/TiuDepZai/qut-course-scraper.git  
 cd qut-course-scraper
 ```
 
