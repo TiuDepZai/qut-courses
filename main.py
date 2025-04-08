@@ -34,7 +34,7 @@ async def run_script_with_args(script_name, *args):
     # Run subprocess with arguments
     process = await asyncio.create_subprocess_exec(
         # For Linux
-        # "python", script_name, *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        # "python3", script_name, *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
 
         # For Windows
         sys.executable, script_name, *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -47,10 +47,10 @@ async def run_script_with_args(script_name, *args):
     # Check the return code to determine if the script ran successfully
     if process.returncode == 0:
         print(f"Script {script_name} completed successfully with args: {args}")
-        print(stdout.decode())
+        print(stdout.decode(errors='replace'))
     else:
         print(f"Script {script_name} failed with error code {process.returncode} and args: {args}")
-        print(stderr.decode())
+        print(stderr.decode(errors='replace'))
 
 # Check if courses.json exists. If it doesn't then get it
 async def check_and_run():
@@ -68,17 +68,21 @@ async def pull_course_information():
             data = json.load(file)  # Load JSON data into a Python object (list or dict)
 
         
-        first = data[0]
+        first = data['list_of_courses'][0]
 
-        await run_script_with_args("scripts/extract_course_information.py", first['courseCode'], first['course_title'])
+        # await run_script_with_args("scripts/extract_course_information.py", first['courseCode'], first['course_title'])
+        i = 0
+        for course in data['list_of_courses']:
+            course_code = course['courseCode']
+            course_title = course['course_title']
 
-        # for course in data:
-        #     course_code = course['courseCode']
-        #     course_title = course['course_title']
-
-        #     # Pass course information as arguments to the script
-        #     await run_script_with_args("scripts/extract_course_information.py", course_code, course_title)
-        #     await asyncio.sleep(2)
+            # Pass course information as arguments to the script
+            await run_script_with_args("scripts/ECI.py", course_code, course_title)
+            await asyncio.sleep(2)
+            # i += 1
+            # if i > 5:
+            break
+            
 # Main script
 async def main():
     
@@ -86,7 +90,7 @@ async def main():
     await check_and_run()
 
     # Run the script to pull course information
-    # await pull_course_information()
+    await pull_course_information()
 
 # Run the main function
 asyncio.run(main())
