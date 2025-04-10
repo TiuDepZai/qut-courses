@@ -97,9 +97,6 @@ class MySpider(scrapy.Spider):
             text = duration.css('::text').get().strip()  # Duration text
             duration_data.append({'audience': audience, 'duration': text})
 
-        # Extract main description
-        main_description = response.css('#details-and-units-tab p::text').get()
-
         # Extract delivery location
         delivery_location = response.css('div.col-sm-10 b:contains("Delivery") + ul li::text').get()
 
@@ -111,17 +108,6 @@ class MySpider(scrapy.Spider):
 
         # Extract CRICOS Code
         cricos_code = response.css('b[data-course-audience="INT"]:contains("CRICOS") + ul li::text').get()
-
-        # Extract details and units
-        details_and_units = response.css('#details-and-units-tab ol li::text').getall()
-        seen = set()
-        cleaned_details_and_units = []
-        for detail in details_and_units:
-            stripped_detail = detail.strip()
-            if stripped_detail and stripped_detail not in seen:
-                cleaned_details_and_units.append(stripped_detail)
-                seen.add(stripped_detail)
-
 
         # Extract highlights
         highlights = response.css('div.container.course-highlights[data-course-audience="DOM"] ul li::text').getall()
@@ -169,8 +155,6 @@ class MySpider(scrapy.Spider):
             "atar_rank": atar_rank,
             "qtac_code": qtac_code,
             "cricos_code": cricos_code,
-            "main_description": main_description,
-            "details_and_units": cleaned_details_and_units,
             "highlights": cleaned_highlights,
             "what_to_expect-careers_and_outcome": dynamic_sections,
 
@@ -180,9 +164,9 @@ class MySpider(scrapy.Spider):
 
         # Save the extracted data to a separate JSON file for each course
         if course_code:
-            output_file = f"{course_code}.json"
+            output_file = f"./courses/{course_code}.json"
         else:
-            output_file = f"{course_name.replace(' ', '_').lower()}.json"
+            output_file = f"./courses/{course_name.replace(' ', '_').lower()}.json"
 
         try:
             with open(output_file, "w", encoding="utf-8") as f:
@@ -206,9 +190,6 @@ course_title = re.sub(r"-{2,}", "-", course_title)  # Remove extra dashes
 course_title = re.sub(r"[()]", "", course_title)  # Remove parentheses
 
 courseLink = f"https://www.qut.edu.au/courses/{course_title}"
-# courseLink = f"http://127.0.0.1:5500/scripts/responseForCourse.html"
-
-# print(f"Processing course: {course_code} - {courseLink}")
 
 # Run the spider with the course_link argument
 process = CrawlerProcess()
