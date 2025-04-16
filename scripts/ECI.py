@@ -77,131 +77,122 @@ class MySpider(scrapy.Spider):
         #     f.write(response.text)
 
         try:
-            # Extract course name
-            course_name = response.css('span[data-course-map-key="courseTitle"]::text').get()
-            course_name = course_name.strip() if course_name else None
 
-            # Extract course code
-            course_code = response.css('dd[data-course-map-key="reqTabCourseCode"]::text').get()
-            course_code = course_code.strip() if course_code else None
+            # Check if the page contains the course-tab-wrapper div
+            is_course_page = response.xpath('//*[@id="course-tab-wrapper"]').get() is not None
 
-            # Check if course_name or course_code is missing
-            if not course_name or not course_code:
-                missing_fields = []
-                if not course_name:
-                    missing_fields.append("course_name")
-                if not course_code:
-                    missing_fields.append("course_code")
-
-                # Add to not_courses.json
+            if not is_course_page:
+                # Handle as an overview page
                 self.handle_missing_course(
                     url=response.url,
                     error_message="Overview Page not a course",
-                    missing_fields=missing_fields
+                    missing_fields=["ContentPanel"]
                 )
-                return  # Exit early if required fields are missing
+                return  # Exit early if it's not a course page
+
+            # Extract course name
+            course_name = response.xpath('//span[@data-course-map-key="courseTitle"]/text()').get()
+            course_name = course_name.strip() if course_name else None
+
+            # Extract course code
+            course_code = response.xpath('//dd[@data-course-map-key="reqTabCourseCode"]/text()').get()
+            course_code = course_code.strip() if course_code else None
+
+            # Extract durations (Domestic and International)
+            durations = response.xpath('//div[contains(@class, "duration-icon")]//li[@data-course-audience]')
+            duration_data = []
+            for duration in durations:
+                audience = duration.xpath('./@data-course-audience').get()  # DOM or INT
+                text = duration.xpath('./text()').get().strip()  # Duration text
+                duration_data.append({'audience': audience, 'duration': text})
+
+            # Extract delivery location
+            delivery_location = response.xpath('//div[contains(@class, "col-sm-10")]//b[contains(text(), "Delivery")]/following-sibling::ul/li/text()').get()
+
+            # Extract ATAR/Selection Rank
+            atar_rank = response.xpath('//dd[contains(@class, "rank inverted")]/text()').get()
+
+            # Extract QTAC Code
+            qtac_code = response.xpath('//b[@data-course-audience="DOM" and contains(text(), "QTAC code")]/following-sibling::ul/li/text()').get()
+
+            # Extract CRICOS Code
+            cricos_code = response.xpath('//b[@data-course-audience="INT" and contains(text(), "CRICOS")]/following-sibling::ul/li/text()').get()
+
+            # Extract highlights
+            highlights = response.xpath('//div[contains(@class, "container course-highlights") and @data-course-audience="DOM"]//ul/li/text()').getall()
+            cleaned_highlights = [MySpider.normalize_text(highlight.strip()) for highlight in highlights if highlight and highlight.strip()]
+
+            # Extract CSP fee
+            csp_fee = response.xpath('//div[contains(@class, "box-content")]/p[contains(text(), "CSP")]/text()').re_first(r'CSP \$[\d,]+ per year full-time')
+
+            # Extract all sections dynamically
+            panel = response.xpath('//div[contains(@class, "panel-content row")]')
+            dynamic_sections = {}
+
+            # Go through all .course-detail-item blocks inside this panel
+            for section in panel.xpath('.//div[contains(@class, "course-detail-item")]'):
+                audience = section.xpath('./@data-course-audience').get()  # DOM or INT
+                if 'DOM' not in audience:
+                    continue  # Skip if it's not for DOM
+
+                # Extract title
+                title = section.xpath('.//h3/text()').get()
+                title = title.strip() if title else "Untitled Section"
+
+                # Extract all text including inside <a> tags
+                raw_texts = section.xpath('.//p//text()').getall()
+                content = [MySpider.normalize_text(text.strip()) for text in raw_texts if text.strip()]
+
+                dynamic_sections[title] = content
+
+            # Extract possible careers
+            possible_careers = response.xpath('//div[@data-course-map-key="careerOutcomesList"]//ul/li/text()').getall()
+            possible_careers = [career.strip() for career in possible_careers if career.strip()]
+
+            if possible_careers:
+                dynamic_sections["Possible Careers"] = possible_careers
+
+            # Extract JSON-LD and get courseCode + identifier
+            json_ld = response.xpath('//script[@type="application/ld+json"]/text()').get()
+            identifier = json.loads(json_ld).get('identifier', None) if json_ld else None
+
+
+            # Build the extracted data dictionary
+            extracted_data = {
+                "course_name": course_name,
+                "course_code": course_code,
+                "identifier": identifier,
+                "durations": duration_data,
+                "delivery_location": delivery_location,
+                "atar_rank": atar_rank,
+                "csp_cost": csp_fee,
+                "qtac_code": qtac_code,
+                "cricos_code": cricos_code,
+                "highlights": cleaned_highlights,
+                "what_to_expect-careers_and_outcome": dynamic_sections,
+                'source': self.courseLink,
+                'day_obtained': datetime.now().strftime('%Y-%m-%d'),
+            }
+
+            # Save the extracted data to a separate JSON file for each course
+            if course_code:
+                output_file = f"./courses/{course_code}.json"
+            else:
+                output_file = f"./courses/{course_name.replace(' ', '_').lower()}.json"
+
+            # Write extracted data in into a json object.
+            with open(output_file, "w", encoding="utf-8") as f:
+                json.dump(extracted_data, f, indent=4, ensure_ascii=False) 
+            print(f"Error writing to {output_file}: {e}")
+
+
+            # Yield the extracted data as output
+            yield extracted_data
 
         except Exception as e:
             # Handle unexpected errors
             self.handle_missing_course(response.url, str(e))
             return  # Exit early
-
-        # Extract course code from the ATAR/Selection rank section
-        course_code = response.css('dd[data-course-map-key="reqTabCourseCode"]::text').get()
-        course_code = course_code.strip()
-
-        # Extract durations (Domestic and International)
-        durations = response.css('div.duration-icon li[data-course-audience]')
-        duration_data = []
-        for duration in durations:
-            audience = duration.css('::attr(data-course-audience)').get()  # DOM or INT
-            text = duration.css('::text').get().strip()  # Duration text
-            duration_data.append({'audience': audience, 'duration': text})
-
-        # Extract delivery location
-        delivery_location = response.css('div.col-sm-10 b:contains("Delivery") + ul li::text').get()
-
-        # Extract ATAR/Selection Rank
-        atar_rank = response.css('dd.rank.inverted::text').get()
-
-        # Extract QTAC Code
-        qtac_code = response.css('b[data-course-audience="DOM"]:contains("QTAC code") + ul li::text').get()
-
-        # Extract CRICOS Code
-        cricos_code = response.css('b[data-course-audience="INT"]:contains("CRICOS") + ul li::text').get()
-
-        # Extract highlights
-        highlights = response.css('div.container.course-highlights[data-course-audience="DOM"] ul li::text').getall()
-        cleaned_highlights = [MySpider.normalize_text(highlight.strip()) for highlight in highlights if highlight and highlight.strip()]
-        
-        csp_fee = response.css('div.box-content p::text').re_first(r'CSP \$[\d,]+ per year full-time')
-
-        # Extract all sections dynamically
-        panel = response.css('div.panel-content.row')
-        dynamic_sections = {}
-
-        # Go through all .course-detail-item blocks inside this panel
-        for section in panel.css('div.course-detail-item'):
-            audience = section.attrib.get('data-course-audience', '')
-            if 'DOM' not in audience:
-                continue  # Skip if it's not for DOM
-
-            # Extract title
-            title = section.css('h3::text').get()
-            title = title.strip() if title else "Untitled Section"
-
-            # Extract all text including inside <a> tags
-            raw_texts = section.xpath('.//p//text()').getall()
-            content = [MySpider.normalize_text(text.strip()) for text in raw_texts if text.strip()]
-
-            dynamic_sections[title] = content
-            
-
-        # Extract possible careers
-        possible_careers = response.css('div.course-possible-careers[data-course-map-key="careerOutcomesList"] ul li::text').getall()
-        possible_careers = [career.strip() for career in possible_careers if career.strip()]
-
-        if possible_careers:
-            dynamic_sections["Possible Careers"] = possible_careers
-
-        # Extract JSON-LD and get courseCode + identifier
-        json_ld = response.xpath('//script[@type="application/ld+json"]/text()').get()
-        identifier = json.loads(json_ld).get('identifier', None) if json_ld else None
-
-
-        # Build the extracted data dictionary
-        extracted_data = {
-            "course_name": course_name,
-            "course_code": course_code,
-            "identifier": identifier,
-            "durations": duration_data,
-            "delivery_location": delivery_location,
-            "atar_rank": atar_rank,
-            "csp_cost": csp_fee,
-            "qtac_code": qtac_code,
-            "cricos_code": cricos_code,
-            "highlights": cleaned_highlights,
-            "what_to_expect-careers_and_outcome": dynamic_sections,
-
-            'url': self.courseLink,
-            'day_obtained': datetime.now().strftime('%Y-%m-%d'),
-        }
-
-        # Save the extracted data to a separate JSON file for each course
-        if course_code:
-            output_file = f"./courses/{course_code}.json"
-        else:
-            output_file = f"./courses/{course_name.replace(' ', '_').lower()}.json"
-
-        try:
-            with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(extracted_data, f, indent=4, ensure_ascii=False) 
-        except Exception as e:
-            print(f"Error writing to {output_file}: {e}")
-
-
-        # Yield the extracted data as output
-        yield extracted_data
 
 
 
