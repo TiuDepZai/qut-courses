@@ -133,6 +133,8 @@ class MySpider(scrapy.Spider):
         # Extract highlights
         highlights = response.css('div.container.course-highlights[data-course-audience="DOM"] ul li::text').getall()
         cleaned_highlights = [MySpider.normalize_text(highlight.strip()) for highlight in highlights if highlight and highlight.strip()]
+        
+        csp_fee = response.css('div.box-content p::text').re_first(r'CSP \$[\d,]+ per year full-time')
 
         # Extract all sections dynamically
         panel = response.css('div.panel-content.row')
@@ -175,6 +177,7 @@ class MySpider(scrapy.Spider):
             "durations": duration_data,
             "delivery_location": delivery_location,
             "atar_rank": atar_rank,
+            "csp_cost": csp_fee,
             "qtac_code": qtac_code,
             "cricos_code": cricos_code,
             "highlights": cleaned_highlights,

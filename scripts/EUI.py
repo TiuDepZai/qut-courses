@@ -9,7 +9,7 @@ import re
 import json
 import unicodedata
 import pdfplumber
-import requests
+import requests 
 
 
 class MySpider(scrapy.Spider):
@@ -17,9 +17,11 @@ class MySpider(scrapy.Spider):
     custom_settings = {
         'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
     }
-    def __init__(self, unitLink = None, *args, **kwargs):
+    def __init__(self, unitLink = None, unitCode = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.unitLink = unitLink
+        self.unitCode = unitCode
+
     
     def start_requests(self):
         if self.unitLink:
@@ -27,10 +29,10 @@ class MySpider(scrapy.Spider):
                 url=self.unitLink,
                 callback=self.parse,
                 errback=self.handle_error, 
-                args={'wait': 5},  # Adjust wait time if needed
+                args={'wait': 10},  
             )
         else:
-            self.logger.error("No Unit link provided.")
+            print("No Unit link provided.")
     
     @staticmethod
     def normalize_text(text):
@@ -78,6 +80,34 @@ class MySpider(scrapy.Spider):
         equivalents = [e for e in equivalents if e and not e.startswith('You')]
         return equivalents if equivalents else None
 
+    def fetch_offerings_json(self, unit_code):
+   
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+        }
+
+        # You can customize the years list or default to the current year
+        years = [datetime.now().year]
+        year_str = ",".join(map(str, years))
+        url = f"https://www.qut.edu.au/study/unit/unit-sorcery/courseloop-subject-offerings?unitCode={unit_code}&years={year_str}"
+
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                outlines = response.json()
+                if outlines:
+                    print(f"Fetched {len(outlines)} offerings for {unit_code}")
+                    return outlines
+                else:
+                    print.warning(f"No offerings found for {unit_code} in {year_str}")
+                    return []
+            else:
+                print.error(f"Failed to fetch offerings for {unit_code}: HTTP {response.status_code}")
+                return []
+        except Exception as e:
+            print.error(f"Error fetching offerings for {unit_code}: {str(e)}")
+            return []
+
 
     def parse(self, response):
         try:
@@ -93,29 +123,14 @@ class MySpider(scrapy.Spider):
             prerequisites = unit_codes if unit_codes else None         
             equivalents= self.clean_equivalents(response.xpath('//dt[contains(text(), "Equivalents")]/following-sibling::dd[1]/text()').get())
             anti_requisites = response.xpath('//dt[contains(text(), "Anti-requisites")]/following-sibling::dd[1]/text()').get()
-              # Extract the subject overview content
-            overview_selector = response.xpath('//div[@id="subject-offering"]').get()
-            print(overview_selector)
-            # Debugging step: Print the raw content of the overview section to help identify issues
-            overview_content = overview_selector.get()
-            self.logger.info(f"Overview Section Content: {overview_content[:500]}")  # Print first 500 characters for debugging
-
-            sections = {}
-
-            # Loop through headings and their corresponding text
-            for heading in overview_selector.xpath('.//h4 | .//h5'):
-                title = heading.xpath('normalize-space()').get()
-                # Get all following siblings until the next heading
-                texts = heading.xpath('following-sibling::*')
-                content = []
-                for elem in texts:
-                    if elem.root.tag in ['h4', 'h5']:
-                        break  # Stop at the next section heading
-                    content.extend(elem.xpath('.//text()').getall())
-                
-                # Clean up the content
-                cleaned_text = ' '.join(t.strip() for t in content if t.strip())
-                sections[title] = cleaned_text
+            sp_fee = response.xpath('//dt[contains(text(), "Commonwealth supported place")]/following-sibling::dd[1]/text()').get()
+            domestic_fee = response.xpath('//dt[contains(text(), "Domestic fee-paying student fee")]/following-sibling::dd[1]/text()').get()
+            international_fee = response.xpath('//dt[contains(text(), "International student fee")]/following-sibling::dd[1]/text()').get()
+            
+            if unitCode:
+                offerings = self.fetch_offerings_json(unitCode)
+            else:
+                offerings = []
 
 
             extracted_data = {
@@ -123,12 +138,14 @@ class MySpider(scrapy.Spider):
                 "faculty": faculty,
                 "school": school,
                 "studyArea": studyArea,
-                "studyArea": studyArea,
+                "sp_fee": sp_fee,
+                "domestic_fee": domestic_fee,
+                "international_fee": international_fee,
                 "creditPoints": creditPoints,
                 "prerequisites": prerequisites,
                 "equivalents": equivalents,
                 "anti_requisites": anti_requisites,
-                "overview": sections,
+                "overview": offerings,
                 'url': self.unitLink,
                 'day_obtained': datetime.now().strftime('%Y-%m-%d'),
             }
@@ -159,15 +176,15 @@ class MySpider(scrapy.Spider):
 
 
 # Access arguments passed to the script
-unit_code = sys.argv[1]  # First argument
+unitCode = sys.argv[1]  # First argument
 
 
-unit = re.sub(r"\s+", "-", unit_code).upper()  # Replace spaces with hyphens
+unit = re.sub(r"\s+", "-", unitCode).upper()  # Replace spaces with hyphens
 
 unitLink = f"https://www.qut.edu.au/study/unit?unitCode={unit}"
 print(unitLink)
 
 # Run the spider with the unit_link argument
 process = CrawlerProcess()
-process.crawl(MySpider, unitLink=unitLink)
+process.crawl(MySpider, unitLink=unitLink, unitCode=unitCode)
 process.start()
