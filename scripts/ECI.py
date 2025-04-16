@@ -26,6 +26,7 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(
                 url=self.courseLink,
                 callback=self.parse,
+                errback=self.handle_error, 
                 args={'wait': 10},  # Adjust wait time if needed
             )
         else:
@@ -41,6 +42,14 @@ class MySpider(scrapy.Spider):
         text = unicodedata.normalize('NFKC', text)  # normalize Unicode
         return text
 
+    def handle_error(self, failure):
+        #Log the error and add the course to not_courses
+            self.handle_missing_course(
+        url=failure.value.response.url,
+        error_message=f"HTTP error {failure.value.response.status}",
+        missing_fields=["course_name", "course_code"]
+    )
+            
     #    Handles courses with missing data by logging and saving to `not_courses.json`
     def handle_missing_course(self, url, error_message, missing_fields=None):
         missing_course = {
@@ -64,24 +73,36 @@ class MySpider(scrapy.Spider):
         self.logger.warning(f"Missing or invalid course data for URL: {url}")
 
     def parse(self, response):
-        with open("response.html", "w", encoding="utf-8") as f:
-            f.write(response.text)
+        # with open("response.html", "w", encoding="utf-8") as f:
+        #     f.write(response.text)
 
         try:
             # Extract course name
             course_name = response.css('span[data-course-map-key="courseTitle"]::text').get()
             course_name = course_name.strip() if course_name else None
 
+            # Extract course code
             course_code = response.css('dd[data-course-map-key="reqTabCourseCode"]::text').get()
             course_code = course_code.strip() if course_code else None
 
-            if not course_name:
-                raise ValueError("Course name is missing")
-            
-            if not course_code:
-                raise ValueError("Course code is missing")
-            
+            # Check if course_name or course_code is missing
+            if not course_name or not course_code:
+                missing_fields = []
+                if not course_name:
+                    missing_fields.append("course_name")
+                if not course_code:
+                    missing_fields.append("course_code")
+
+                # Add to not_courses.json
+                self.handle_missing_course(
+                    url=response.url,
+                    error_message="Overview Page not a course",
+                    missing_fields=missing_fields
+                )
+                return  # Exit early if required fields are missing
+
         except Exception as e:
+            # Handle unexpected errors
             self.handle_missing_course(response.url, str(e))
             return  # Exit early
 
@@ -145,6 +166,7 @@ class MySpider(scrapy.Spider):
         json_ld = response.xpath('//script[@type="application/ld+json"]/text()').get()
         identifier = json.loads(json_ld).get('identifier', None) if json_ld else None
 
+
         # Build the extracted data dictionary
         extracted_data = {
             "course_name": course_name,
@@ -185,11 +207,14 @@ course_code = sys.argv[1]  # First argument
 course_title = sys.argv[2]  # Second argument
 
 
-course_title = re.sub(r"\s+", "-", course_title).lower()
-course_title = re.sub(r"-{2,}", "-", course_title)  # Remove extra dashes
+course_title = re.sub(r"\s+", "-", course_title).lower()  # Replace spaces with hyphens
+course_title = re.sub(r"/", "-", course_title)  # Replace slashes with hyphens
+course_title = re.sub(r"-{2,}", "-", course_title)  # Replace multiple consecutive hyphens with a single hyphen
 course_title = re.sub(r"[()]", "", course_title)  # Remove parentheses
+course_title = course_title.strip("-")  # Remove leading or trailing hyphens
 
 courseLink = f"https://www.qut.edu.au/courses/{course_title}"
+# courseLink = f"https://www.qut.edu.au/courses/bachelor-of-biomedical-science"
 
 # Run the spider with the course_link argument
 process = CrawlerProcess()

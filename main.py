@@ -63,34 +63,50 @@ async def check_and_run():
 # Function to pull course information from the JSON file and plug into extract course information script
 async def pull_course_information():
 
-        # Open and load the JSON file
-        with open("courses.json", "r", encoding="utf-8") as file:
-            data = json.load(file)  # Load JSON data into a Python object (list or dict)
+    # Open and load the JSON file
+    with open("courses.json", "r", encoding="utf-8") as file:
+        data = json.load(file)  # Load JSON data into a Python object (list or dict)
 
-        
-        first = data['list_of_courses'][0]
+    
+    first = data['list_of_courses'][0]
 
-        # await run_script_with_args("scripts/extract_course_information.py", first['courseCode'], first['course_title'])
-        i = 0
-        for course in data['list_of_courses']:
-            course_code = course['courseCode']
-            course_title = course['course_title']
+    # await run_script_with_args("scripts/extract_course_information.py", first['courseCode'], first['course_title'])
+    i = 0
+    for course in data['list_of_courses']:
+        course_code = course['courseCode']
+        course_title = course['course_title']
 
-            # Pass course information as arguments to the script
-            await run_script_with_args("scripts/ECI.py", course_code, course_title)
-            await asyncio.sleep(2)
-            # i += 1
-            # if i > 5:
+        # Pass course information as arguments to the script
+        await run_script_with_args("scripts/ECI.py", course_code, course_title)
+        await asyncio.sleep(2)
+        i += 1
+        if i > 50:
             break
-            
+
+async def pull_unit_information():
+    # Open and load the JSON file
+    with open("units.json", "r", encoding="utf-8") as file:
+        data = json.load(file)  # Load JSON data into a Python object (list or dict)
+    
+    for unitCode in data['unitCodes']:
+        unitCode = unitCode['unitCode']
+
+        # Pass course information as arguments to the script
+        await run_script_with_args("scripts/EUI.py", unitCode)
+        await asyncio.sleep(2)
+        
+
+
 # Main script
 async def main():
     
     # Check if there is a course json file with all the course information.
-    await check_and_run()
+    # await check_and_run()
 
     # Run the script to pull course information
-    await pull_course_information()
+    # await pull_course_information()
+
+    await pull_unit_information()
 
 # Run the main function
 asyncio.run(main())
