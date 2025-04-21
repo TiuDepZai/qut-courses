@@ -80,9 +80,10 @@ async def pull_course_information():
         await run_script_with_args("scripts/ECI.py", course_code, course_title)
         await asyncio.sleep(2)
         i += 1
-        if i > 50:
+        if i > 5:
             break
 
+# Function to pull unit information from pdf
 async def pull_unit_information():
     # Open and load the JSON file
     with open("units.json", "r", encoding="utf-8") as file:
@@ -95,6 +96,33 @@ async def pull_unit_information():
         await run_script_with_args("scripts/EUI.py", unitCode)
         await asyncio.sleep(2)
         
+async def pull_unitCode_from_course():
+    course_folder = "./courses"
+
+    # Check if the course folder exists
+    if os.path.exists(course_folder):
+        # Process each file in folder
+        for filename in os.listdir(course_folder):
+            # Construct the full file path
+            file_path = os.path.join(course_folder, filename)
+            # Check if the file is a JSON file
+            if filename.endswith(".json") and os.path.isfile(file_path):
+                print(f"Processing file: {file_path}")
+                # Open and load the JSON file
+                with open(file_path, "r", encoding="utf-8") as file:
+                    try:
+                        
+                        course = json.load(file)
+                        course_code = course['course_code']
+                        course_id = course['identifier']
+
+                        # Pass course information as arguments to the script
+                        await run_script_with_args("scripts/getPDFInfo.py", course_code, course_id)
+                        await asyncio.sleep(2)
+
+                    except json.JSONDecodeError as e:
+                        print(f"Error reading JSON file {file_path}: {e}")
+                        continue
 
 
 # Main script
@@ -106,7 +134,10 @@ async def main():
     # Run the script to pull course information
     # await pull_course_information()
 
-    await pull_unit_information()
+    # Run the script to pull unit information from the PDF
+    await pull_unitCode_from_course()
+
+    # await pull_unit_information()
 
 # Run the main function
 asyncio.run(main())

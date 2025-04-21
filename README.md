@@ -50,31 +50,9 @@ Head to the folder where the scripts are
 ##### Linux / MacOS
 ```python3 main.py```
 
-4. MongoDB Integration
-## Windows
-#### Download MongoDB
-[MongoDB Downloads](https://www.mongodb.com/try/download/community)
-Install and start MongoDB  
-```net start MondoDB```
-
-## Linux/macOS
-#### Debian/Ubuntu
-```sudo apt update
-sudo apt install -y mongodb
-sudo systemctl start mongod
-```
-
-### MacOS (Homebrew users)
-```brew tap mongodb/brew
-brew install mongodb-community@6.0
-brew services start mongodb-community@6.0
-```
-
-#### Check MongoDB status:
-```mongod --version```
-
 # Contributing
 Feel free to submit issues or pull requests to improve this scraper.
+Shoutout to Sky Hu
 
 # License
 This project is open-source and available under the MIT License.
