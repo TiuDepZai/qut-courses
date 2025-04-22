@@ -2,4 +2,4 @@ scrapy
 pymongo
 dnspython
 scrapy-splash
-pdfplumber
+PyMuPDF
