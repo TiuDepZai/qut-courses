@@ -117,7 +117,7 @@ async def pull_unitCode_from_course():
                         course_id = course['identifier']
 
                         # Pass course information as arguments to the script
-                        # await run_script_with_args("scripts/download_pdf.py", course_code, course_id)
+                        await run_script_with_args("scripts/download_pdf.py", course_code, course_id)
                         # await asyncio.sleep(2)
                         await run_script_with_args("scripts/analyze_pdf.py", course_code)
 

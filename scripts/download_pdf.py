@@ -18,9 +18,10 @@ class PDFSpider(scrapy.Spider):
         'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
     }
 
-    def __init__(self, pdf_url=None, *args, **kwargs):
+    def __init__(self, pdf_url=None, courseCode = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.pdf_url = pdf_url
+        self.courseCode = courseCode
 
     def start_requests(self):
         if self.pdf_url:
@@ -33,7 +34,7 @@ class PDFSpider(scrapy.Spider):
 
     def parse_pdf(self, response):
         try:
-            pdf_filename = "./pdf/temp.pdf"
+            pdf_filename = f"./pdf/{self.courseCode}.pdf"
             os.makedirs(os.path.dirname(pdf_filename), exist_ok=True)
             with open(pdf_filename, "wb") as f:
                 f.write(response.body)
@@ -45,13 +46,13 @@ class PDFSpider(scrapy.Spider):
 
 
 # ====== Run the spider ======
-unitCode = sys.argv[1]  # First argument
+courseCode = sys.argv[1]  # First argument
 id = sys.argv[2]
 
-pdf_url = f"https://pdf.courses.qut.edu.au/coursepdf/qut_{unitCode}_{id}_dom_cms_unit.pdf"
+pdf_url = f"https://pdf.courses.qut.edu.au/coursepdf/qut_{courseCode}_{id}_dom_cms_unit.pdf"
 
 process = CrawlerProcess()
-process.crawl(PDFSpider, pdf_url=pdf_url)
+process.crawl(PDFSpider, pdf_url=pdf_url, courseCode = courseCode)
 process.start()  # Download PDF
 
 

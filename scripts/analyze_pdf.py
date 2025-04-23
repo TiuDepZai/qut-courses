@@ -1,86 +1,81 @@
 import fitz  # PyMuPDF
-import re
 import json
-import os
+import re
 import sys
-import traceback
+
 
 def fix_split_codes(text):
     """
-    Fixes unit codes that might be split across lines.
-    For example, 'ABB\n101' becomes 'ABB101'.
+    Fixes unit codes split across lines (e.g., 'ABB\\n101' becomes 'ABB101').
     """
     return re.sub(r'([A-Z]{3})\s*\n\s*(\d{3})', r'\1\2', text)
 
 
-def extract_course_guide_info_from_text(text):
+def extract_course_info_from_dict(pdf_path, course_code):
     """
-    Extracts Accurate Date, Structures, and Year/Semester course data.
+    Extracts semester and unit code information from a PDF using PyMuPDF's 'dict' layout.
     """
-    structures = []
+    doc = fitz.open(pdf_path)
+    full_text = ""
 
-    # Find all structure blocks (e.g., "AB05 - February entry - Full Time")
-    structure_matches = re.findall(r'(AB05 - .*?entry - .*?)\s*\n\s*Semesters', text)
+    # Combine all pages into a single text blob
+    for page_num in range(len(doc)):
+        page = doc.load_page(page_num)
+        full_text += page.get_text("text") + "\n\n"
+    doc.close()
 
-    for structure_name in structure_matches:
-        # Extract the content for the current structure
-        structure_content = re.search(
-            rf'{re.escape(structure_name)}\s*\n\s*Semesters(.*?)(?=AB05 - |$)',
-            text,
-            re.DOTALL
-        )
-        if not structure_content:
-            continue
+    # Fix broken unit codes (e.g., ABB\n105)
+    full_text = fix_split_codes(full_text)
 
-        structure_text = structure_content.group(1)
+    # Extract all semester sections
+    semester_matches = list(re.finditer(
+        r"(Year\s+\d,?\s+Semester\s+\d(?:\s+\(July\))?)", full_text, re.IGNORECASE))
 
-        # Extract semesters and their units
-        semesters = {}
-        semester_blocks = re.split(r'Year\s+\d,?\s+Semester\s+\d(?:\s+\(July\))?', structure_text)
-        semester_titles = re.findall(r'Year\s+\d,?\s+Semester\s+\d(?:\s+\(July\))?', structure_text)
-
-        for title, block in zip(semester_titles, semester_blocks[1:]):
-            semester_key = title.lower().replace(" ", "").replace(",", "")
-            unit_codes = re.findall(r'(ABB\d{3})', block)
-            semesters[semester_key] = unit_codes
-
-        # Add the structure to the list
-        structures.append({
-            "name": structure_name,
-            "semesters": semesters
-        })
-
-    return {
-        "course_code": "AB05",  # Hardcoded for now; replace with dynamic extraction if needed
-        "structures": structures
+    course_data = {
+        "course_code": course_code,
+        "structures": [
+            {
+                "name": f"{course_code} - default structure",
+                "semesters": {}
+            }
+        ]
     }
 
+    semesters = course_data["structures"][0]["semesters"]
 
-def extract_and_save_course_info(pdf_path, output_json):
-    try:
-        doc = fitz.open(pdf_path)
-        full_text = ""
-        for page_num in range(len(doc)):
-            page = doc[page_num]
-            full_text += page.get_text("text") + "\n\n"
-        doc.close()
+    for i, match in enumerate(semester_matches):
+        semester_title = match.group(1)
+        start_idx = match.end()
+        end_idx = semester_matches[i + 1].start() if i + 1 < len(semester_matches) else len(full_text)
 
-        full_text = fix_split_codes(full_text)
+        semester_block = full_text[start_idx:end_idx]
+        semester_key = semester_title.lower().replace(" ", "").replace(",", "")
 
-        course_info = extract_course_guide_info_from_text(full_text)
+        unit_codes = re.findall(r'ABB\d{3}', semester_block)
+        qut_you_units = re.findall(r'Select one QUT You unit', semester_block)
+        complementary_unit = "Complementary Studies unit" if "Complementary Studies unit" in semester_block else None
 
-        with open(output_json, 'w', encoding='utf-8') as f:
-            json.dump(course_info, f, indent=4)
+        if unit_codes or qut_you_units or complementary_unit:
+            semesters[semester_key] = unit_codes
+            semesters[semester_key].extend(["Select one QUT You unit"] * len(qut_you_units))
+            if complementary_unit:
+                semesters[semester_key].append(complementary_unit)
 
-        print(f"Extraction complete. Saved to {output_json}")
-    except Exception as e:
-        print(f"Error extracting course info: {e}")
-        traceback.print_exc()
-
+    return course_data
 
 
-# Entry point
-pdf_courseCode = sys.argv[1]
-pdf_path = "./pdf/temp.pdf"
-output_file = f"./pdf/{os.path.splitext(pdf_courseCode)[0]}_course_data.json"
-extract_and_save_course_info(pdf_path, output_file)
+def save_course_info_to_json(course_data, output_json):
+    """
+    Saves the extracted course data to a JSON file.
+    """
+    with open(output_json, 'w', encoding='utf-8') as f:
+        json.dump(course_data, f, indent=4)
+    print(f" Data extracted and saved to {output_json}")
+
+
+course_code = sys.argv[1].upper()
+pdf_path = f"./pdf/{course_code}.pdf"
+output_json = f"{course_code}_course_data.json"
+
+course_info = extract_course_info_from_dict(pdf_path, course_code)
+save_course_info_to_json(course_info, output_json)

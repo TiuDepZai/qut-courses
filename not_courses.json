@@ -1,0 +1,203 @@
+[
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-communication-bachelor-of-public-health",
+        "error": "HTTP error 404",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-communication-bachelor-of-justice",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-communication-bachelor-of-information-technology",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-communication-bachelor-of-science",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-design-bachelor-of-information-technology",
+        "error": "HTTP error 404",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-data-science-bachelor-of-property-economics",
+        "error": "HTTP error 404",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-behavioural-science-psychology-bachelor-of-design",
+        "error": "HTTP error 404",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-communication-bachelor-of-public-health",
+        "error": "HTTP error 404",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-communication-bachelor-of-public-health",
+        "error": "HTTP error 404",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-creative-arts",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-creative-arts",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "course_name",
+            "course_code"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-architectural-design",
+        "error": "cannot access local variable 'e' where it is not associated with a value"
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business-international",
+        "error": "cannot access local variable 'e' where it is not associated with a value"
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-creative-arts",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-architectural-design",
+        "error": "cannot access local variable 'e' where it is not associated with a value"
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business-international",
+        "error": "cannot access local variable 'e' where it is not associated with a value"
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-business",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    },
+    {
+        "url": "https://www.qut.edu.au/courses/bachelor-of-creative-arts",
+        "error": "Overview Page not a course",
+        "missing_fields": [
+            "ContentPanel"
+        ]
+    }
+]

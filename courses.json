@@ -1,0 +1,1030 @@
+{
+    "source": "https://www.qut.edu.au/about/governance-and-policy/handbooks-course-lists-and-award-abbreviations/active-courses-list",
+    "day_obtained": "2025-04-17",
+    "list_of_courses": [
+        {
+            "courseCode": "AB05",
+            "course_title": "Bachelor of Architectural Design"
+        },
+        {
+            "courseCode": "BS05",
+            "course_title": "Bachelor of Business"
+        },
+        {
+            "courseCode": "BS06",
+            "course_title": "Bachelor of Business"
+        },
+        {
+            "courseCode": "BS08",
+            "course_title": "Bachelor of Business - International"
+        },
+        {
+            "courseCode": "BZ05",
+            "course_title": "Bachelor of Business"
+        },
+        {
+            "courseCode": "CA01",
+            "course_title": "Bachelor of Creative Arts"
+        },
+        {
+            "courseCode": "CA02",
+            "course_title": "Bachelor of Creative Arts (Acting)"
+        },
+        {
+            "courseCode": "CS43",
+            "course_title": "Bachelor of Paramedic Science"
+        },
+        {
+            "courseCode": "CS44",
+            "course_title": "Bachelor of Podiatry"
+        },
+        {
+            "courseCode": "CS49",
+            "course_title": "Bachelor of Radiation Therapy"
+        },
+        {
+            "courseCode": "DE43",
+            "course_title": "Bachelor of Design"
+        },
+        {
+            "courseCode": "DE44",
+            "course_title": "Bachelor of Design Studies"
+        },
+        {
+            "courseCode": "DE45",
+            "course_title": "Bachelor of Design - International"
+        },
+        {
+            "courseCode": "DS01",
+            "course_title": "Bachelor of Data Science"
+        },
+        {
+            "courseCode": "ED29",
+            "course_title": "Bachelor of Educational Studies"
+        },
+        {
+            "courseCode": "ED34",
+            "course_title": "Bachelor of Early Childhood Education (Birth to Five)"
+        },
+        {
+            "courseCode": "ED39",
+            "course_title": "Bachelor of Education (Early Childhood)"
+        },
+        {
+            "courseCode": "ED49",
+            "course_title": "Bachelor of Education (Primary)"
+        },
+        {
+            "courseCode": "ED59",
+            "course_title": "Bachelor of Education (Secondary)"
+        },
+        {
+            "courseCode": "EN29",
+            "course_title": "Bachelor of Engineering Studies"
+        },
+        {
+            "courseCode": "HL25",
+            "course_title": "Bachelor of Health Studies"
+        },
+        {
+            "courseCode": "IN01",
+            "course_title": "Bachelor of Information Technology"
+        },
+        {
+            "courseCode": "IN05",
+            "course_title": "Bachelor of Games and Interactive Environments"
+        },
+        {
+            "courseCode": "JS34",
+            "course_title": "Bachelor of Justice"
+        },
+        {
+            "courseCode": "KC40",
+            "course_title": "Bachelor of Communication"
+        },
+        {
+            "courseCode": "KK43",
+            "course_title": "Bachelor of Creative Industries"
+        },
+        {
+            "courseCode": "LS40",
+            "course_title": "Bachelor of Biomedical Science"
+        },
+        {
+            "courseCode": "LS47",
+            "course_title": "Bachelor of Medical Laboratory Science"
+        },
+        {
+            "courseCode": "LV41",
+            "course_title": "Bachelor of Biomedical Science"
+        },
+        {
+            "courseCode": "MS01",
+            "course_title": "Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "MV01",
+            "course_title": "Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "NS42",
+            "course_title": "Bachelor of Nursing"
+        },
+        {
+            "courseCode": "OP45",
+            "course_title": "Bachelor of Vision Science"
+        },
+        {
+            "courseCode": "PU51",
+            "course_title": "Bachelor of Health Information Management"
+        },
+        {
+            "courseCode": "PU52",
+            "course_title": "Bachelor of Public Health"
+        },
+        {
+            "courseCode": "PY45",
+            "course_title": "Bachelor of Behavioural Science (Psychology)"
+        },
+        {
+            "courseCode": "ST01",
+            "course_title": "Bachelor of Science"
+        },
+        {
+            "courseCode": "SV02",
+            "course_title": "Bachelor of Science"
+        },
+        {
+            "courseCode": "SW03",
+            "course_title": "Bachelor of Human Services"
+        },
+        {
+            "courseCode": "SW04",
+            "course_title": "Bachelor of Social Work"
+        },
+        {
+            "courseCode": "UD05",
+            "course_title": "Bachelor of Property Economics"
+        },
+        {
+            "courseCode": "XN43",
+            "course_title": "Bachelor of Nutrition Science"
+        },
+        {
+            "courseCode": "XN50",
+            "course_title": "Bachelor of Sport and Exercise Science"
+        },
+        {
+            "courseCode": "XN51",
+            "course_title": "Bachelor of Clinical Exercise Physiology"
+        },
+        {
+            "courseCode": "AB01",
+            "course_title": "Bachelor of Built Environment (Honours)"
+        },
+        {
+            "courseCode": "BS63",
+            "course_title": "Bachelor of Business (Honours)"
+        },
+        {
+            "courseCode": "CS46",
+            "course_title": "Bachelor of Podiatry (Honours)"
+        },
+        {
+            "courseCode": "CS47",
+            "course_title": "Bachelor of Pharmacy (Honours)"
+        },
+        {
+            "courseCode": "CS48",
+            "course_title": "Bachelor of Medical Imaging (Honours)"
+        },
+        {
+            "courseCode": "CS50",
+            "course_title": "Bachelor of Radiation Therapy (Honours)"
+        },
+        {
+            "courseCode": "EN01",
+            "course_title": "Bachelor of Engineering (Honours)"
+        },
+        {
+            "courseCode": "HL53",
+            "course_title": "Bachelor of Biomedical Science (Honours) (Study Area A)"
+        },
+        {
+            "courseCode": "IN10",
+            "course_title": "Bachelor of Information Technology (Honours)"
+        },
+        {
+            "courseCode": "LW38",
+            "course_title": "Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "LW39",
+            "course_title": "Bachelor of Laws (Honours) (Graduate Entry)"
+        },
+        {
+            "courseCode": "MS10",
+            "course_title": "Bachelor of Mathematics (Honours)"
+        },
+        {
+            "courseCode": "PY09",
+            "course_title": "Bachelor of Behavioural Science (Honours Psychology)"
+        },
+        {
+            "courseCode": "ST10",
+            "course_title": "Bachelor of Science (Honours)"
+        },
+        {
+            "courseCode": "ST20",
+            "course_title": "Bachelor of Science Advanced (Honours)"
+        },
+        {
+            "courseCode": "SW05",
+            "course_title": "Bachelor of Social Work (Honours)"
+        },
+        {
+            "courseCode": "XN45",
+            "course_title": "Bachelor of Nutrition and Dietetics (Honours)"
+        },
+        {
+            "courseCode": "XN52",
+            "course_title": "Bachelor of Clinical Exercise Physiology (Honours)"
+        },
+        {
+            "courseCode": "HL16",
+            "course_title": "Bachelor of Nursing / Bachelor of Public Health"
+        },
+        {
+            "courseCode": "HL18",
+            "course_title": "Bachelor of Nursing / Bachelor of Behavioural Science (Psychology)"
+        },
+        {
+            "courseCode": "HL20",
+            "course_title": "Bachelor of Behavioural Science (Psychology) / Bachelor of Social Work"
+        },
+        {
+            "courseCode": "ID02",
+            "course_title": "Bachelor of Creative Industries / Bachelor of Human Services"
+        },
+        {
+            "courseCode": "ID03",
+            "course_title": "Bachelor of Creative Industries / Bachelor of Information Technology"
+        },
+        {
+            "courseCode": "ID07",
+            "course_title": "Bachelor of Communication / Bachelor of Public Health"
+        },
+        {
+            "courseCode": "ID09",
+            "course_title": "Bachelor of Communication / Bachelor of Justice"
+        },
+        {
+            "courseCode": "ID10",
+            "course_title": "Bachelor of Communication / Bachelor of Information Technology"
+        },
+        {
+            "courseCode": "ID11",
+            "course_title": "Bachelor of Communication / Bachelor of Science"
+        },
+        {
+            "courseCode": "ID15",
+            "course_title": "Bachelor of Design / Bachelor of Information Technology"
+        },
+        {
+            "courseCode": "ID28",
+            "course_title": "Bachelor of Biomedical Science / Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "ID30",
+            "course_title": "Bachelor of Data Science / Bachelor of Property Economics"
+        },
+        {
+            "courseCode": "ID49",
+            "course_title": "Bachelor of Creative Arts / Bachelor of Behavioural Science (Psychology)"
+        },
+        {
+            "courseCode": "ID53",
+            "course_title": "Bachelor of Architectural Design / Bachelor of Property Economics"
+        },
+        {
+            "courseCode": "ID56",
+            "course_title": "Bachelor of Behavioural Science (Psychology) / Bachelor of Design"
+        },
+        {
+            "courseCode": "ID57",
+            "course_title": "Bachelor of Education (Secondary) / Bachelor of Creative Arts"
+        },
+        {
+            "courseCode": "IX77",
+            "course_title": "Bachelor of Behavioural Science (Psychology) / Bachelor of Justice"
+        },
+        {
+            "courseCode": "IX78",
+            "course_title": "Bachelor of Human Services / Bachelor of Justice"
+        },
+        {
+            "courseCode": "SE07",
+            "course_title": "Bachelor of Science/ Bachelor of Data Science"
+        },
+        {
+            "courseCode": "SE20",
+            "course_title": "Bachelor of Science / Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "SE30",
+            "course_title": "Bachelor of Information Technology / Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "SE50",
+            "course_title": "Bachelor of Science / Bachelor of Information Technology"
+        },
+        {
+            "courseCode": "SE70",
+            "course_title": "Bachelor of Games and Interactive Environments / Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "SE90",
+            "course_title": "Bachelor of Science / Bachelor of Games and Interactive Environments"
+        },
+        {
+            "courseCode": "EB01",
+            "course_title": "Bachelor of Architectural Design / Bachelor of Built Environment (Honours) (Urban and Regional Planning)"
+        },
+        {
+            "courseCode": "EB02",
+            "course_title": "Bachelor of Architectural Design / Bachelor of Built Environment (Honours) (Construction Management and Quantity Surveying)"
+        },
+        {
+            "courseCode": "EB03",
+            "course_title": "Bachelor of Architectural Design / Bachelor of Built Environment (Honours) (Interior Design)"
+        },
+        {
+            "courseCode": "EB04",
+            "course_title": "Bachelor of Architectural Design / Bachelor of Built Environment (Honours) (Landscape Architecture)"
+        },
+        {
+            "courseCode": "EB05",
+            "course_title": "Bachelor of Architectural Design / Bachelor of Engineering (Honours)"
+        },
+        {
+            "courseCode": "ID14",
+            "course_title": "Bachelor of Design / Bachelor of Engineering (Honours)"
+        },
+        {
+            "courseCode": "ID37",
+            "course_title": "Bachelor of Creative Industries / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID38",
+            "course_title": "Bachelor of Communication / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID40",
+            "course_title": "Bachelor of Property Economics / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID41",
+            "course_title": "Bachelor of Data Science / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID42",
+            "course_title": "Bachelor of Science / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID44",
+            "course_title": "Bachelor of Behavioural Science (Psychology) / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID46",
+            "course_title": "Bachelor of Information Technology / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID47",
+            "course_title": "Bachelor of Biomedical Science / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID48",
+            "course_title": "Bachelor of Justice / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID51",
+            "course_title": "Bachelor of Built Environment (Honours) (Landscape Architecture) / Bachelor of Science"
+        },
+        {
+            "courseCode": "ID52",
+            "course_title": "Bachelor of Built Environment (Honours) (Urban and Regional Planning) / Bachelor of Property Economics"
+        },
+        {
+            "courseCode": "ID55",
+            "course_title": "Bachelor of Built Environment (Honours) (Urban and Regional Planning) / Bachelor of Science"
+        },
+        {
+            "courseCode": "ID58",
+            "course_title": "Bachelor of Creative Arts / Bachelor of Laws (Honours)"
+        },
+        {
+            "courseCode": "ID60",
+            "course_title": "Bachelor of Built Environment (Honours) (Interior Design) / Bachelor of Property Economics"
+        },
+        {
+            "courseCode": "ID61",
+            "course_title": "Bachelor of Built Environment (Honours) (Construction Management &amp; Quantity Surveying) / Bachelor of Property Economics"
+        },
+        {
+            "courseCode": "SE40",
+            "course_title": "Bachelor of Engineering (Honours) / Bachelor of Mathematics"
+        },
+        {
+            "courseCode": "SE60",
+            "course_title": "Bachelor of Engineering (Honours) / Bachelor of Information Technology"
+        },
+        {
+            "courseCode": "SE80",
+            "course_title": "Bachelor of Engineering (Honours) / Bachelor of Science"
+        },
+        {
+            "courseCode": "BS79",
+            "course_title": "Graduate Diploma in Business"
+        },
+        {
+            "courseCode": "CS60",
+            "course_title": "Graduate Diploma in Medical Ultrasound"
+        },
+        {
+            "courseCode": "CS61",
+            "course_title": "Graduate Diploma in Cardiac Ultrasound"
+        },
+        {
+            "courseCode": "DE88",
+            "course_title": "Graduate Diploma in Strategic Design"
+        },
+        {
+            "courseCode": "EN79",
+            "course_title": "Graduate Diploma in Engineering Studies"
+        },
+        {
+            "courseCode": "EU20",
+            "course_title": "Graduate Diploma in Educational Studies"
+        },
+        {
+            "courseCode": "GS41",
+            "course_title": "Graduate Diploma in Business Administration"
+        },
+        {
+            "courseCode": "GS72",
+            "course_title": "Graduate Diploma in Business Administration"
+        },
+        {
+            "courseCode": "GZ44",
+            "course_title": "Graduate Diploma in Business"
+        },
+        {
+            "courseCode": "HQ10",
+            "course_title": "Graduate Diploma in Gerontology"
+        },
+        {
+            "courseCode": "IN19",
+            "course_title": "Graduate Diploma in Information Technology"
+        },
+        {
+            "courseCode": "IN97",
+            "course_title": "Graduate Diploma in Information Science"
+        },
+        {
+            "courseCode": "IQ19",
+            "course_title": "Graduate Diploma in Information Technology"
+        },
+        {
+            "courseCode": "KC87",
+            "course_title": "Graduate Diploma in Digital Communication"
+        },
+        {
+            "courseCode": "KQ87",
+            "course_title": "Graduate Diploma in Digital Communication"
+        },
+        {
+            "courseCode": "LP41",
+            "course_title": "Graduate Diploma in Legal Practice"
+        },
+        {
+            "courseCode": "LS72",
+            "course_title": "Graduate Diploma in Diagnostic Genomics"
+        },
+        {
+            "courseCode": "LZ41",
+            "course_title": "Graduate Diploma in Legal Practice"
+        },
+        {
+            "courseCode": "NS60",
+            "course_title": "Graduate Diploma in Nursing"
+        },
+        {
+            "courseCode": "PH71",
+            "course_title": "Graduate Diploma in Applied Science"
+        },
+        {
+            "courseCode": "PQ63",
+            "course_title": "Graduate Diploma in Health Management"
+        },
+        {
+            "courseCode": "PQ77",
+            "course_title": "Graduate Diploma in Health Management and Leadership"
+        },
+        {
+            "courseCode": "PU60",
+            "course_title": "Graduate Diploma in Public Health"
+        },
+        {
+            "courseCode": "PU65",
+            "course_title": "Graduate Diploma in Occupational Health and Safety"
+        },
+        {
+            "courseCode": "PU67",
+            "course_title": "Graduate Diploma in Environmental Health"
+        },
+        {
+            "courseCode": "PU77",
+            "course_title": "Graduate Diploma in Health Management &amp; Leadership"
+        },
+        {
+            "courseCode": "PY10",
+            "course_title": "Graduate Diploma in Counselling"
+        },
+        {
+            "courseCode": "SW60",
+            "course_title": "Graduate Diploma in Social Care"
+        },
+        {
+            "courseCode": "BS37",
+            "course_title": "Graduate Certificate in Business and Communication"
+        },
+        {
+            "courseCode": "BS39",
+            "course_title": "Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "CS30",
+            "course_title": "Graduate Certificate in Podiatric Therapeutics"
+        },
+        {
+            "courseCode": "DE77",
+            "course_title": "Graduate Certificate in Strategic Design"
+        },
+        {
+            "courseCode": "EN60",
+            "course_title": "Graduate Certificate in Communication for Engineering"
+        },
+        {
+            "courseCode": "EN61",
+            "course_title": "Graduate Certificate in Smart Transport and Mobility"
+        },
+        {
+            "courseCode": "EN62",
+            "course_title": "Graduate Certificate in Robotics"
+        },
+        {
+            "courseCode": "EN63",
+            "course_title": "Graduate Certificate in Renewable Power"
+        },
+        {
+            "courseCode": "EN64",
+            "course_title": "Graduate Certificate in Digital and Robotic Manufacturing"
+        },
+        {
+            "courseCode": "EN65",
+            "course_title": "Graduate Certificate in Water Modelling"
+        },
+        {
+            "courseCode": "EN66",
+            "course_title": "Graduate Certificate in Bioprocess Engineering"
+        },
+        {
+            "courseCode": "EN67",
+            "course_title": "Graduate Certificate in Renewable Energy Systems"
+        },
+        {
+            "courseCode": "EQ60",
+            "course_title": "Graduate Certificate in Education"
+        },
+        {
+            "courseCode": "EU60",
+            "course_title": "Graduate Certificate in Education"
+        },
+        {
+            "courseCode": "EZ60",
+            "course_title": "Graduate Certificate in Education"
+        },
+        {
+            "courseCode": "GS60",
+            "course_title": "Executive Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "GS71",
+            "course_title": "Graduate Certificate in Business Administration"
+        },
+        {
+            "courseCode": "GS87",
+            "course_title": "Graduate Certificate in Business Administration"
+        },
+        {
+            "courseCode": "GS89",
+            "course_title": "Executive Graduate Certificate in Business Administration"
+        },
+        {
+            "courseCode": "GZ34",
+            "course_title": "Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "GZ35",
+            "course_title": "Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "GZ38",
+            "course_title": "Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "GZ39",
+            "course_title": "Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "GZ60",
+            "course_title": "Executive Graduate Certificate in Business"
+        },
+        {
+            "courseCode": "HQ08",
+            "course_title": "Graduate Certificate in Care of the Aged"
+        },
+        {
+            "courseCode": "HQ09",
+            "course_title": "Graduate Certificate in Gerontology"
+        },
+        {
+            "courseCode": "IF89",
+            "course_title": "Graduate Certificate in Research Studies"
+        },
+        {
+            "courseCode": "IN17",
+            "course_title": "Graduate Certificate in Communication for Information Technology"
+        },
+        {
+            "courseCode": "IN18",
+            "course_title": "Graduate Certificate in Information Technology"
+        },
+        {
+            "courseCode": "IN25",
+            "course_title": "Graduate Certificate in Business Process Management"
+        },
+        {
+            "courseCode": "IN30",
+            "course_title": "Graduate Certificate in Data Science"
+        },
+        {
+            "courseCode": "IN70",
+            "course_title": "Graduate Certificate in Information Technology Practice"
+        },
+        {
+            "courseCode": "IQ14",
+            "course_title": "Graduate Certificate in Business Analysis"
+        },
+        {
+            "courseCode": "IQ15",
+            "course_title": "Graduate Certificate in Computer Science"
+        },
+        {
+            "courseCode": "IQ16",
+            "course_title": "Graduate Certificate in Cyber Security and Networks"
+        },
+        {
+            "courseCode": "IQ18",
+            "course_title": "Graduate Certificate in Information Technology"
+        },
+        {
+            "courseCode": "IQ26",
+            "course_title": "Graduate Certificate in Data Analytics"
+        },
+        {
+            "courseCode": "IQ70",
+            "course_title": "Graduate Certificate in Information Technology Practice"
+        },
+        {
+            "courseCode": "IZ25",
+            "course_title": "Graduate Certificate in Business Process Management"
+        },
+        {
+            "courseCode": "IZ70",
+            "course_title": "Graduate Certificate in Information Technology Practice"
+        },
+        {
+            "courseCode": "JQ12",
+            "course_title": "Graduate Certificate in Domestic Violence Responses"
+        },
+        {
+            "courseCode": "JQ20",
+            "course_title": "Graduate Certificate in Investigations and Intelligence"
+        },
+        {
+            "courseCode": "JQ23",
+            "course_title": "Graduate Certificate in Policy and Governance"
+        },
+        {
+            "courseCode": "KC86",
+            "course_title": "Graduate Certificate in Digital Communication"
+        },
+        {
+            "courseCode": "KQ86",
+            "course_title": "Graduate Certificate in Digital Communication"
+        },
+        {
+            "courseCode": "LS60",
+            "course_title": "Graduate Certificate in Diagnostic Genomics"
+        },
+        {
+            "courseCode": "NS32",
+            "course_title": "Graduate Certificate in Nursing"
+        },
+        {
+            "courseCode": "PM15",
+            "course_title": "Graduate Certificate in Project Management"
+        },
+        {
+            "courseCode": "PQ15",
+            "course_title": "Graduate Certificate in Project Management"
+        },
+        {
+            "courseCode": "PQ30",
+            "course_title": "Graduate Certificate in Emergency and Disaster Management"
+        },
+        {
+            "courseCode": "PQ31",
+            "course_title": "Graduate Certificate in Health Management and Leadership"
+        },
+        {
+            "courseCode": "PU70",
+            "course_title": "Graduate Certificate in Digital Health Leadership and Management"
+        },
+        {
+            "courseCode": "SW30",
+            "course_title": "Graduate Certificate in Social Care"
+        },
+        {
+            "courseCode": "BN87",
+            "course_title": "Master of Engineering Management"
+        },
+        {
+            "courseCode": "BS11",
+            "course_title": "Master of Business"
+        },
+        {
+            "courseCode": "DE83",
+            "course_title": "Master of Architecture"
+        },
+        {
+            "courseCode": "DE99",
+            "course_title": "Master of Design (Strategic Design)"
+        },
+        {
+            "courseCode": "EN50",
+            "course_title": "Master of Engineering"
+        },
+        {
+            "courseCode": "EN51",
+            "course_title": "Master of Sustainable Infrastructure"
+        },
+        {
+            "courseCode": "EN52",
+            "course_title": "Master of Robotics and Artificial Intelligence"
+        },
+        {
+            "courseCode": "EN53",
+            "course_title": "Master of Renewable Energy"
+        },
+        {
+            "courseCode": "EN54",
+            "course_title": "Master of Advanced Manufacturing"
+        },
+        {
+            "courseCode": "EN55",
+            "course_title": "Master of Professional Engineering"
+        },
+        {
+            "courseCode": "EN56",
+            "course_title": "Master of Engineering Technology"
+        },
+        {
+            "courseCode": "EN71",
+            "course_title": "Master of Sustainable Infrastructure with Project Management"
+        },
+        {
+            "courseCode": "EN72",
+            "course_title": "Master of Advanced Robotics and Artificial Intelligence"
+        },
+        {
+            "courseCode": "EN73",
+            "course_title": "Master of Renewable Energy with Project Management"
+        },
+        {
+            "courseCode": "EN74",
+            "course_title": "Master of Advanced Manufacturing with Project Management"
+        },
+        {
+            "courseCode": "EN75",
+            "course_title": "Master of Sustainable Infrastructure with Data Analytics"
+        },
+        {
+            "courseCode": "EN76",
+            "course_title": "Master of Renewable Energy with Data Analytics"
+        },
+        {
+            "courseCode": "EN77",
+            "course_title": "Master of Advanced Manufacturing with Data Analytics"
+        },
+        {
+            "courseCode": "EQ71",
+            "course_title": "Master of Education"
+        },
+        {
+            "courseCode": "EU30",
+            "course_title": "Master of Teaching (Early Childhood)"
+        },
+        {
+            "courseCode": "EU40",
+            "course_title": "Master of Teaching (Primary)"
+        },
+        {
+            "courseCode": "EU50",
+            "course_title": "Master of Teaching (Secondary)"
+        },
+        {
+            "courseCode": "EU71",
+            "course_title": "Master of Education"
+        },
+        {
+            "courseCode": "EU73",
+            "course_title": "Master of Education"
+        },
+        {
+            "courseCode": "EZ71",
+            "course_title": "Master of Education"
+        },
+        {
+            "courseCode": "GS50",
+            "course_title": "Executive Master of Business Administration"
+        },
+        {
+            "courseCode": "GS73",
+            "course_title": "Master of Business Administration"
+        },
+        {
+            "courseCode": "GS75",
+            "course_title": "Master of Business Administration"
+        },
+        {
+            "courseCode": "HQ11",
+            "course_title": "Master of Gerontology"
+        },
+        {
+            "courseCode": "IN20",
+            "course_title": "Master of Information Technology"
+        },
+        {
+            "courseCode": "IN31",
+            "course_title": "Master of Data Science"
+        },
+        {
+            "courseCode": "IQ20",
+            "course_title": "Master of Information Technology"
+        },
+        {
+            "courseCode": "KC88",
+            "course_title": "Master of Digital Communication"
+        },
+        {
+            "courseCode": "KQ89",
+            "course_title": "Master of Digital Communication"
+        },
+        {
+            "courseCode": "LS81",
+            "course_title": "Master of Diagnostic Genomics"
+        },
+        {
+            "courseCode": "NS89",
+            "course_title": "Master of Nursing - Entry to Practice"
+        },
+        {
+            "courseCode": "NS90",
+            "course_title": "Master of Nurse Practitioner"
+        },
+        {
+            "courseCode": "NS95",
+            "course_title": "Master of Nursing"
+        },
+        {
+            "courseCode": "OP85",
+            "course_title": "Master of Optometry"
+        },
+        {
+            "courseCode": "PH80",
+            "course_title": "Master of Applied Science"
+        },
+        {
+            "courseCode": "PM20",
+            "course_title": "Master of Project Management"
+        },
+        {
+            "courseCode": "PQ20",
+            "course_title": "Master of Project Management"
+        },
+        {
+            "courseCode": "PQ87",
+            "course_title": "Master of Health Management and Leadership"
+        },
+        {
+            "courseCode": "PU80",
+            "course_title": "Master of Health, Safety and Environment"
+        },
+        {
+            "courseCode": "PU86",
+            "course_title": "Master of Public Health"
+        },
+        {
+            "courseCode": "PU87",
+            "course_title": "Master of Health Management and Leadership"
+        },
+        {
+            "courseCode": "PY12",
+            "course_title": "Master of Counselling"
+        },
+        {
+            "courseCode": "PY18",
+            "course_title": "Master of Clinical Psychology"
+        },
+        {
+            "courseCode": "PY19",
+            "course_title": "Master of Psychology (Educational and Developmental)"
+        },
+        {
+            "courseCode": "SW81",
+            "course_title": "Master of Social Work - Qualifying"
+        },
+        {
+            "courseCode": "EN80",
+            "course_title": "Master of Engineering Management / Master of Engineering Technology"
+        },
+        {
+            "courseCode": "IF80",
+            "course_title": "Master of Philosophy"
+        },
+        {
+            "courseCode": "ED11",
+            "course_title": "Doctor of Education"
+        },
+        {
+            "courseCode": "IF49",
+            "course_title": "Doctor of Philosophy"
+        },
+        {
+            "courseCode": "U022",
+            "course_title": "Certificate of Achievement"
+        },
+        {
+            "courseCode": "AB02",
+            "course_title": "Diploma in Architectural Studies"
+        },
+        {
+            "courseCode": "BS40",
+            "course_title": "Diploma in Business"
+        },
+        {
+            "courseCode": "EE18",
+            "course_title": "Diploma in Entrepreneurship"
+        },
+        {
+            "courseCode": "EN02",
+            "course_title": "Diploma in Engineering"
+        },
+        {
+            "courseCode": "ES21",
+            "course_title": "Diploma in Esports"
+        },
+        {
+            "courseCode": "HL10",
+            "course_title": "Diploma in Health Science"
+        },
+        {
+            "courseCode": "IF06",
+            "course_title": "Diploma in Creative Industries"
+        },
+        {
+            "courseCode": "IT10",
+            "course_title": "Diploma in Information Technology"
+        },
+        {
+            "courseCode": "QC07",
+            "course_title": "Intensive Program"
+        },
+        {
+            "courseCode": "QC08",
+            "course_title": "Standard Foundation Program"
+        }
+    ]
+}
