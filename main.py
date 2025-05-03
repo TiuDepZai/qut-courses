@@ -80,22 +80,10 @@ async def pull_course_information():
         await run_script_with_args("scripts/ECI.py", course_code, course_title)
         await asyncio.sleep(2)
         i += 1
-        if i > 5:
+        if i > 50:
             break
 
-# Function to pull unit information from pdf
-async def pull_unit_information():
-    # Open and load the JSON file
-    with open("units.json", "r", encoding="utf-8") as file:
-        data = json.load(file)  # Load JSON data into a Python object (list or dict)
-    
-    for unitCode in data['unitCodes']:
-        unitCode = unitCode['unitCode']
-
-        # Pass course information as arguments to the script
-        await run_script_with_args("scripts/EUI.py", unitCode)
-        await asyncio.sleep(2)
-        
+# Function to pull unitCode from course
 async def pull_unitCode_from_course():
     course_folder = "./courses"
 
@@ -116,29 +104,52 @@ async def pull_unitCode_from_course():
                         course_code = course['course_code']
                         course_id = course['identifier']
 
-                        # Pass course information as arguments to the script
-                        await run_script_with_args("scripts/download_pdf.py", course_code, course_id)
+                        # Download course pdf to extract unitCode
+                        # await run_script_with_args("scripts/download_pdf.py", course_code, course_id)
+                        await asyncio.sleep(2)
+                        
+                        # Extract information about course semesters
+                        # await run_script_with_args("scripts/analyze_pdf.py", course_code)
+                        
+                        # Extract Unit Code
+                        await run_script_with_args("scripts/EUFC.py", course_code)
+
                         # await asyncio.sleep(2)
-                        await run_script_with_args("scripts/analyze_pdf.py", course_code)
+                        # await run_script_with_args("scripts/extract_unitCodes.py", course_code)
+
 
                     except json.JSONDecodeError as e:
                         print(f"Error reading JSON file {file_path}: {e}")
                         continue
 
 
+# Function to pull unit information from unit code website
+async def pull_unit_information():
+    # Open and load the JSON file
+    with open("units.json", "r", encoding="utf-8") as file:
+        data = json.load(file)  # Load JSON data into a Python object (list or dict)
+    
+    for unitCode in data['unitCodes']:
+        unitCode = unitCode['unitCode']
+
+        # Pass course information as arguments to the script
+        await run_script_with_args("scripts/EUI.py", unitCode)
+        await asyncio.sleep(2)
+
 # Main script
 async def main():
     
-    # Check if there is a course json file with all the course information.
+    # # Check if there is a course json file with all the course information.
     # await check_and_run()
 
-    # Run the script to pull course information
+    # # Run the script to pull course information
     # await pull_course_information()
 
-    # Run the script to pull unit information from the PDF
+    # # Run the script to pull unit information from the PDF
     await pull_unitCode_from_course()
 
-    # await pull_unit_information()
+    # Run script to pull unit information from unit code website
+    await pull_unit_information()
 
 # Run the main function
 asyncio.run(main())

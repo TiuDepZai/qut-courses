@@ -1,4 +1,6 @@
 ./courses.json
-./courses/
+./courses/*
 ./not_courses.json
 ./response.html
+./pdf/*
+./units/*
