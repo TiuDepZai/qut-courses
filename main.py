@@ -3,7 +3,7 @@ import os
 import asyncio
 import json
 import sys
-import math
+import random
 
 
 # Async function for running scripts
@@ -68,15 +68,14 @@ async def pull_course_information():
     with open("courses.json", "r", encoding="utf-8") as file:
         data = json.load(file)  # Load JSON data into a Python object (list or dict)
 
-
-    # await run_script_with_args("scripts/extract_course_information.py", first['courseCode'], first['course_title'])
+    # Loop through the JSON data to obtain course Code. Then feed it into the script
     for course in data['list_of_courses']:
         course_code = course['courseCode']
         course_title = course['course_title']
 
         # Pass course information as arguments to the script
         await run_script_with_args("scripts/ECI.py", course_code, course_title)
-        await asyncio.sleep(math.random.randint(1, 5))  # Random sleep between 1 and 5 seconds
+        await asyncio.sleep(random.randint(1, 5))  # Random sleep between 1 and 5 seconds
 
 # Function to pull unitCode from course
 async def pull_unitCode_from_course():
