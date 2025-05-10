@@ -25,9 +25,6 @@ class CourseSpider(scrapy.Spider):
         )
 
     def parse(self, response):
-            # Save response for debugging
-            with open("response.html", "w", encoding="utf-8") as f:
-                f.write(response.text)
 
             # Extract all course titles from <h3> tags
             course_titles = response.css('h3::text').getall()
