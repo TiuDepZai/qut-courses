@@ -104,9 +104,9 @@ if __name__ == "__main__":
     unit_guide = extract_units_by_semester(pdf_path, semester_blocks)
 
     # Output as {AB05_unitGuide: [...]}
-    result = {f"{course_code}_unitGuide": unit_guide}
-    os.makedirs(os.path.dirname(output_json), exist_ok=True)
-    with open(output_json, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2)
+    # result = {f"{course_code}_unitGuide": unit_guide}
+    # os.makedirs(os.path.dirname(output_json), exist_ok=True)
+    # with open(output_json, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2)
 
     print(f"Wrote {output_json}")

@@ -74,6 +74,7 @@ def add_semester_blocks_to_course(course_json_path, semester_blocks, output_path
     # Save to a new file or overwrite
     if output_path is None:
         output_path = course_json_path
+        
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(course_data, f, indent=2)
 

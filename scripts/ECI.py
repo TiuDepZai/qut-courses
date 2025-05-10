@@ -1,15 +1,13 @@
-# The purpose of this script is to pull information from the each course information.
+# The purpose of this script is to pull information from each course page.
 import sys
 import scrapy
 from scrapy_splash import SplashRequest
 from scrapy.crawler import CrawlerProcess
-import subprocess
 from datetime import datetime
 import re
 import json
 import unicodedata
-import pdfplumber
-import requests
+import os
 
 
 class MySpider(scrapy.Spider):
@@ -17,24 +15,27 @@ class MySpider(scrapy.Spider):
     custom_settings = {
         'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
     }
-    def __init__(self, courseLink = None, *args, **kwargs):
+
+    def __init__(self, courseLink=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.courseLink = courseLink
-    
+
     def start_requests(self):
         if self.courseLink:
             yield SplashRequest(
                 url=self.courseLink,
                 callback=self.parse,
-                errback=self.handle_error, 
+                errback=self.handle_error,
                 args={'wait': 10},  # Adjust wait time if needed
             )
         else:
             self.logger.error("No course link provided.")
-    
+
     @staticmethod
     def normalize_text(text):
-        # Replace smart quotes and other typographic characters with ASCII equivalents
+        """
+        Replace smart quotes and other typographic characters with ASCII equivalents.
+        """
         text = text.replace('’', "'")  # right single quote
         text = text.replace('‘', "'")  # left single quote
         text = text.replace('“', '"')  # left double quote
@@ -43,15 +44,24 @@ class MySpider(scrapy.Spider):
         return text
 
     def handle_error(self, failure):
-        #Log the error and add the course to not_courses
-            self.handle_missing_course(
-        url=failure.value.response.url,
-        error_message=f"HTTP error {failure.value.response.status}",
-        missing_fields=["course_name", "course_code"]
-    )
-            
-    #    Handles courses with missing data by logging and saving to `not_courses.json`
+        print(f"Error occurred: {failure.value.response.status} for URL: {failure.request.url}")
+        status_code = failure.value.response.status
+        if status_code == 404:
+            error_message = "Website not found"
+        else:
+            error_message = f"HTTP error {status_code}"
+
+        self.handle_missing_course(
+            url=failure.value.response.url,
+            error_message=error_message,
+            missing_fields=["course_name", "course_code"]
+        )
+
+
     def handle_missing_course(self, url, error_message, missing_fields=None):
+        """
+        Handles courses with missing data by logging and saving to `not_courses.json`.
+        """
         missing_course = {
             "url": url,
             "error": error_message,
@@ -70,14 +80,10 @@ class MySpider(scrapy.Spider):
         with open("not_courses.json", "w", encoding="utf-8") as f:
             json.dump(not_courses, f, indent=4)
 
-        self.logger.warning(f"Missing or invalid course data for URL: {url}")
+        print(f"Missing or invalid course data for URL: {url}")
 
     def parse(self, response):
-        # with open("response.html", "w", encoding="utf-8") as f:
-        #     f.write(response.text)
-
         try:
-
             # Check if the page contains the course-tab-wrapper div
             is_course_page = response.xpath('//*[@id="course-tab-wrapper"]').get() is not None
 
@@ -129,7 +135,6 @@ class MySpider(scrapy.Spider):
             panel = response.xpath('//div[contains(@class, "panel-content row")]')
             dynamic_sections = {}
 
-            # Go through all .course-detail-item blocks inside this panel
             for section in panel.xpath('.//div[contains(@class, "course-detail-item")]'):
                 audience = section.xpath('./@data-course-audience').get()  # DOM or INT
                 if 'DOM' not in audience:
@@ -156,7 +161,6 @@ class MySpider(scrapy.Spider):
             json_ld = response.xpath('//script[@type="application/ld+json"]/text()').get()
             identifier = json.loads(json_ld).get('identifier', None) if json_ld else None
 
-
             # Build the extracted data dictionary
             extracted_data = {
                 "course_name": course_name,
@@ -180,14 +184,13 @@ class MySpider(scrapy.Spider):
             else:
                 output_file = f"./courses/{course_name.replace(' ', '_').lower()}.json"
 
-            # Write extracted data in into a json object.
+            # Write extracted data into a JSON object
             with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(extracted_data, f, indent=4, ensure_ascii=False) 
-            print(f"Error writing to {output_file}: {e}")
-
+                json.dump(extracted_data, f, indent=4, ensure_ascii=False)
 
             # Yield the extracted data as output
             yield extracted_data
+            print(f"Data extracted and saved to {output_file}")
 
         except Exception as e:
             # Handle unexpected errors
@@ -195,11 +198,9 @@ class MySpider(scrapy.Spider):
             return  # Exit early
 
 
-
 # Access arguments passed to the script
 course_code = sys.argv[1]  # First argument
 course_title = sys.argv[2]  # Second argument
-
 
 course_title = re.sub(r"\s+", "-", course_title).lower()  # Replace spaces with hyphens
 course_title = re.sub(r"/", "-", course_title)  # Replace slashes with hyphens
@@ -208,7 +209,6 @@ course_title = re.sub(r"[()]", "", course_title)  # Remove parentheses
 course_title = course_title.strip("-")  # Remove leading or trailing hyphens
 
 courseLink = f"https://www.qut.edu.au/courses/{course_title}"
-# courseLink = f"https://www.qut.edu.au/courses/bachelor-of-biomedical-science"
 
 # Run the spider with the course_link argument
 process = CrawlerProcess()
