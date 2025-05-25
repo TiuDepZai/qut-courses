@@ -72,9 +72,10 @@ def run_spider():
 
     # Set up the crawler process with settings
     process = CrawlerProcess(settings={
-        'FEED_FORMAT': 'json',  # Output format (can be csv, xml, etc.)
+        'FEED_FORMAT': 'json', 
     })
     process.crawl(CourseSpider)  # Start crawling with the CourseSpider
     process.start()  # Start the crawling process
-
-run_spider()
+    
+if __name__ == "__main__":
+    run_spider()

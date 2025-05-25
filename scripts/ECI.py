@@ -33,9 +33,8 @@ class MySpider(scrapy.Spider):
 
     @staticmethod
     def normalize_text(text):
-        """
-        Replace smart quotes and other typographic characters with ASCII equivalents.
-        """
+        # Normalize text by replacing special characters and normalizing Unicode
+
         text = text.replace('’', "'")  # right single quote
         text = text.replace('‘', "'")  # left single quote
         text = text.replace('“', '"')  # left double quote
@@ -44,6 +43,7 @@ class MySpider(scrapy.Spider):
         return text
 
     def handle_error(self, failure):
+        # Handle errors during the request
         print(f"Error occurred: {failure.value.response.status} for URL: {failure.request.url}")
         status_code = failure.value.response.status
         if status_code == 404:
@@ -59,9 +59,8 @@ class MySpider(scrapy.Spider):
 
 
     def handle_missing_course(self, url, error_message, missing_fields=None):
-        """
-        Handles courses with missing data by logging and saving to `not_courses.json`.
-        """
+        #Handles courses with missing data by logging and saving to `not_courses.json`.
+        
         missing_course = {
             "url": url,
             "error": error_message,
@@ -197,20 +196,28 @@ class MySpider(scrapy.Spider):
             self.handle_missing_course(response.url, str(e))
             return  # Exit early
 
+if __name__ == "__main__":
+    # Access arguments passed to the script
+    course_code = sys.argv[1]  # First argument
+    course_title = sys.argv[2]  # Second argument
 
-# Access arguments passed to the script
-course_code = sys.argv[1]  # First argument
-course_title = sys.argv[2]  # Second argument
+    # Construct the course_link
+    course_title = re.sub(r"\s+", "-", course_title).lower()  # Replace spaces with hyphens
+    course_title = re.sub(r"/", "-", course_title)  # Replace slashes with hyphens
+    course_title = re.sub(r"-{2,}", "-", course_title)  # Replace multiple consecutive hyphens with a single hyphen
+    course_title = re.sub(r"[()]", "", course_title)  # Remove parentheses
+    course_title = course_title.strip("-")  # Remove leading or trailing hyphens
 
-course_title = re.sub(r"\s+", "-", course_title).lower()  # Replace spaces with hyphens
-course_title = re.sub(r"/", "-", course_title)  # Replace slashes with hyphens
-course_title = re.sub(r"-{2,}", "-", course_title)  # Replace multiple consecutive hyphens with a single hyphen
-course_title = re.sub(r"[()]", "", course_title)  # Remove parentheses
-course_title = course_title.strip("-")  # Remove leading or trailing hyphens
+    courseLink = f"https://www.qut.edu.au/courses/{course_title}"
+    
+    # Ensure the output directory exists
+    output_dir = "./courses/"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        print(f"Created output directory: {output_dir}")
 
-courseLink = f"https://www.qut.edu.au/courses/{course_title}"
 
-# Run the spider with the course_link argument
-process = CrawlerProcess()
-process.crawl(MySpider, courseLink=courseLink)
-process.start()
+    # Run the spider with the course_link argument
+    process = CrawlerProcess()
+    process.crawl(MySpider, courseLink=courseLink)
+    process.start()

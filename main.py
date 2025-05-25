@@ -73,7 +73,7 @@ async def pull_course_information():
         course_code = course['courseCode']
         course_title = course['course_title']
 
-        # Pass course information as arguments to the script
+        # Pass course information as arguments to the ECI script
         await run_script_with_args("scripts/ECI.py", course_code, course_title)
         await asyncio.sleep(random.randint(1, 5))  # Random sleep between 1 and 5 seconds
 
@@ -100,22 +100,21 @@ async def pull_unitCode_from_course():
 
                         # Download course pdf to extract unitCode
                         await run_script_with_args("scripts/download_pdf.py", course_code, course_id)
-                        await asyncio.sleep(2)
+                        await asyncio.sleep(random.randint(1, 5))  # Random sleep between 1 and 5 seconds
                         
                         # Extract information about course semesters
                         await run_script_with_args("scripts/analyze_pdf.py", course_code)
-                        
+                        await asyncio.sleep(random.randint(1, 5))  # Random sleep between 1 and 5 seconds
+
                         # Extract Unit Code
-                        await run_script_with_args("scripts/EUFC.py", course_code)
-
-                        # await asyncio.sleep(2)
-                        await run_script_with_args("scripts/extract_unitCodes.py", course_code)
-
+                        await run_script_with_args("scripts/EUFC.py", course_code, course_id)
 
                     except json.JSONDecodeError as e:
                         print(f"Error reading JSON file {file_path}: {e}")
                         continue
-
+    else:
+        print(f"Course folder '{course_folder}' does not exist.")
+        return
 
 # Function to pull unit information from unit code website
 async def pull_unit_information():
@@ -136,13 +135,13 @@ async def main():
     # await check_and_run()
 
     # # # Run the script to pull course information
-    await pull_course_information()
+    # await pull_course_information()
 
     # # # Run the script to pull unit information from the PDF
-    # await pull_unitCode_from_course()
+    await pull_unitCode_from_course()
 
     # Run script to pull unit information from unit code website
-    # await pull_unit_information()
+    await pull_unit_information()
 
 # Run the main function
 asyncio.run(main())
