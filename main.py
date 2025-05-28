@@ -55,27 +55,34 @@ async def run_script_with_args(script_name, *args):
 
 # Check if courses.json exists. If it doesn't then get it
 async def check_and_run():
-    if os.path.exists("courses.json"):
-        print("active_courses_list.txt already exists")
-    else:
-        print("active_courses_list.txt does not exist. Fetching the list...")
-        await run_script("scripts/PCI.py")
+    try:
+        if os.path.exists("courses.json"):
+            print("active_courses_list.txt already exists")
+        else:
+            print("active_courses_list.txt does not exist. Fetching the list...")
+            await run_script("scripts/PCI.py")
+    except Exception as e:
+        print(f"An error occurred while checking for courses.json: {e}")
+        return
 
 # Function to pull course information from the JSON file and plug into extract course information script
 async def pull_course_information():
 
-    # Open and load the JSON file
-    with open("courses.json", "r", encoding="utf-8") as file:
-        data = json.load(file)  # Load JSON data into a Python object (list or dict)
+    try:
+        # Open and load the JSON file
+        with open("courses.json", "r", encoding="utf-8") as file:
+            data = json.load(file)  # Load JSON data into a Python object (list or dict)
 
-    # Loop through the JSON data to obtain course Code. Then feed it into the script
-    for course in data['list_of_courses']:
-        course_code = course['courseCode']
-        course_title = course['course_title']
+        # Loop through the JSON data to obtain course Code. Then feed it into the script
+        for course in data['list_of_courses']:
+            course_code = course['courseCode']
+            course_title = course['course_title']
 
-        # Pass course information as arguments to the ECI script
-        await run_script_with_args("scripts/ECI.py", course_code, course_title)
-        await asyncio.sleep(random.randint(1, 5))  # Random sleep between 1 and 5 seconds
+            # Pass course information as arguments to the ECI script
+            await run_script_with_args("scripts/ECI.py", course_code, course_title)
+            await asyncio.sleep(random.randint(1, 5))  # Random sleep between 1 and 5 seconds
+    except Exception as e:
+        print("An error occurred while pulling course information:", e)
 
 # Function to pull unitCode from course
 async def pull_unitCode_from_course():
@@ -118,24 +125,28 @@ async def pull_unitCode_from_course():
 
 # Function to pull unit information from unit code website
 async def pull_unit_information():
-    # Open and load the JSON file
-    with open("units.json", "r", encoding="utf-8") as file:
-        data = json.load(file)  # Load JSON data into a Python object (list or dict)
-    
-    for unitCode in data['unitCodes']:
 
-        # Pass course information as arguments to the script
-        await run_script_with_args("scripts/EUI.py", unitCode)
-        await asyncio.sleep(2)
+    try:
+        # Open and load the JSON file
+        with open("units.json", "r", encoding="utf-8") as file:
+            data = json.load(file)  # Load JSON data into a Python object (list or dict)
+        
+        for unitCode in data['unitCodes']:
+
+            # Pass course information as arguments to the script
+            await run_script_with_args("scripts/EUI.py", unitCode)
+            await asyncio.sleep(2)
+    except Exception as e:
+        print("An error occurred while pulling unit information:", e)
 
 # Main script
 async def main():
     
     # # # Check if there is a course json file with all the course information.
-    # await check_and_run()
+    await check_and_run()
 
     # # # Run the script to pull course information
-    # await pull_course_information()
+    await pull_course_information()
 
     # # # Run the script to pull unit information from the PDF
     await pull_unitCode_from_course()
